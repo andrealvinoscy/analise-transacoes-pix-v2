@@ -1,3 +1,6 @@
-Link abaixo:
+## 📦 Dataset
 
+Fonte: Kaggle - Transações PIX por Município  
 https://www.kaggle.com/datasets/andrealvino/transacoes-pix-por-municpio
+
+Os dados representam o volume de transações PIX no Brasil em 2024, segmentados por estado, região e tipo de pagador (PF e PJ).
