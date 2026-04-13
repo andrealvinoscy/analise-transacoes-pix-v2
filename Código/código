@@ -8,7 +8,8 @@ A análise busca responder:
 - Como se distribuem PF e PJ nas regiões?
 - Existem inconsistências nos dados?
 
-```python
+```
+python
 
 #Importando os dados / estrutura JSON
 import pandas as pd
