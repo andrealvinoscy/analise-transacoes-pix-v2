@@ -115,18 +115,6 @@ pip install -r requirements.txt
 jupyter notebook
 ```
 
----
-
-## 📁 Estrutura do projeto
-
-```
-analise-transacoes-pix-v2/
-│
-├── data/
-├── notebook/
-├── images/
-├── README.md
-└── requirements.txt
 ```
 
 ---
