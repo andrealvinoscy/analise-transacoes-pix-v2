@@ -85,17 +85,29 @@ Foi realizada a agregação dos valores por região e o cálculo da participaç�
 - A análise percentual foi fundamental para normalizar a comparação entre regiões com diferentes volumes absolutos de transações, permitindo uma leitura mais justa da distribuição entre PF e PJ.
 ---
 
-## ⚠️ Qualidade dos dados
+## ⚠️ Limitações dos Dados
 
-Foi identificada uma quantidade relevante de registros com a categoria **"Não informado"** na variável região.
-
-Isso pode indicar:
-
-* Falha no preenchimento
-* Campo não obrigatório
-* Problemas na coleta dos dados
+- Presença de registros “Não informado”, que podem afetar análises regionais mais precisas
+- Ausência de granularidade temporal mais detalhada
+- Possíveis inconsistências na coleta ou padronização dos dados
 
 Esses dados foram mantidos na análise, mas podem impactar a interpretação dos resultados.
+## 📌 Conclusão
+
+A análise das transações PIX em 2024 evidencia uma forte predominância de Pessoas Físicas em todas as regiões do Brasil, enquanto a participação de Pessoas Jurídicas varia de forma mais concentrada em regiões economicamente mais desenvolvidas, como Sul e Sudeste.
+
+Os resultados sugerem diferenças estruturais no perfil de uso do PIX entre regiões, possivelmente relacionadas ao nível de atividade econômica e concentração empresarial.
+
+## 🧰 Ferramentas Utilizadas
+
+- Python
+- Pandas
+- Matplotlib
+- Jupyter Notebook
+
+## 🎯 Problema de Negócio
+
+Entender como se distribuem as transações PIX entre Pessoas Físicas e Jurídicas no Brasil em 2024, e identificar padrões regionais que possam indicar diferenças de comportamento econômico.
 
 ---
 
