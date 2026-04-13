@@ -59,21 +59,18 @@ Foi realizada a agregação dos valores por região e o cálculo da participaç�
 
 ### 🔹 Composição PF vs PJ por Região
 
-![Composição PF vs PJ](./images/grafico_empilhado.png)
+<img width="1218" height="449" alt="image" src="https://github.com/user-attachments/assets/6f53a060-91e2-4c3b-8d81-2f66b748d767" />
 
----
 
 ### 🔹 Participação de Pessoa Jurídica por Região
 
-![Participação PJ](./images/grafico_pj.png)
+<img width="826" height="448" alt="image" src="https://github.com/user-attachments/assets/10d49ec8-cb6d-496f-8c03-7d3e8f130551" />
 
----
 
 ### 🔹 Participação de Pessoa Física por Região
 
-![Participação PF](./images/grafico_pf.png)
+<img width="826" height="451" alt="image" src="https://github.com/user-attachments/assets/52746082-e787-4c4d-95f1-22d1e534d75d" />
 
----
 
 ## 📊 Principais insights
 
