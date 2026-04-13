@@ -1,42 +1,108 @@
+# Análise de Transações PIX por Região
+
+Este projeto tem como objetivo analisar a participação de pessoas físicas (PF) e pessoas jurídicas (PJ) nas transações PIX, com foco na distribuição por região do Brasil.
+
+A análise busca responder:
+
+- Qual região apresenta maior participação de PJ?
+- Como se distribuem PF e PJ nas regiões?
+- Existem inconsistências nos dados?
+
+```python
+
+#Importando os dados / estrutura JSON
 import pandas as pd
+
+df = pd.read_json('data/transacoes_pix.json')
+df['value'].iloc[0]
+
+#Transformação dos Dados
+
+df_novo = pd.DataFrame(df['value'].tolist())
+df_novo.head()
+
+#Análise exploratória
+
+df_novo.info()
+df_novo.describe()
+
+#Agregação por Estado
+
+df_group = df_novo.groupby('Estado')[['VL_PagadorPJ','VL_PagadorPF']].sum()
+
+df_group['Total'] = df_group['VL_PagadorPJ'] + df_group['VL_PagadorPF']
+
+df_group['Perc_PJ'] = df_group['VL_PagadorPJ'] / df_group['Total']
+df_group['Perc_PF'] = df_group['VL_PagadorPF'] / df_group['Total']
+
+df_group.sort_values(by='Perc_PJ', ascending=False).head()
+
+#Análise principal por Região
+
+df_regiao = df_novo.groupby('Regiao')[['VL_PagadorPF', 'VL_PagadorPJ']].sum()
+
+df_regiao['Total'] = df_regiao['VL_PagadorPF'] + df_regiao['VL_PagadorPJ']
+
+df_regiao['Perc_PJ'] = df_regiao['VL_PagadorPJ'] / df_regiao['Total']
+df_regiao['Perc_PF'] = df_regiao['VL_PagadorPF'] / df_regiao['Total']
+
+#Ordenação
+
+df_regiao_ordenado = df_regiao.sort_values(by='Perc_PJ', ascending=False)
+
+#Gráfico 1 — Composição (empilhado)
+
 import matplotlib.pyplot as plt
 
-df = pd.read_json(r"C:\Users\andre\Downloads\Transações Pix por Município.json")
-df = pd.DataFrame(df["value"].tolist())
+plt.figure(figsize=(15,5))
 
-print(df.head())
-print(df.info())
-print(df.describe())
+plt.bar(df_regiao_ordenado.index, df_regiao_ordenado['Perc_PF'], label='Pessoa Física')
+plt.bar(df_regiao_ordenado.index, df_regiao_ordenado['Perc_PJ'],
+        bottom=df_regiao_ordenado['Perc_PF'], label='Pessoa Jurídica')
 
-estado_group = df.groupby("Estado")[["VL_PagadorPF", "VL_PagadorPJ"]].sum()
-estado_group["Total"] = estado_group["VL_PagadorPF"] + estado_group["VL_PagadorPJ"]
-estado_group["Perc_PF"] = estado_group["VL_PagadorPF"] / estado_group["Total"]
-estado_group["Perc_PJ"] = estado_group["VL_PagadorPJ"] / estado_group["Total"]
-
-top_estados = estado_group.sort_values(by="Total", ascending=False).head(5)
-print(top_estados)
-
-regiao_group = df.groupby("Regiao")[["VL_PagadorPF", "VL_PagadorPJ"]].sum()
-regiao_group["Total"] = regiao_group["VL_PagadorPF"] + regiao_group["VL_PagadorPJ"]
-regiao_group["Perc_PF"] = regiao_group["VL_PagadorPF"] / regiao_group["Total"]
-regiao_group["Perc_PJ"] = regiao_group["VL_PagadorPJ"] / regiao_group["Total"]
-regiao_group = regiao_group.sort_values(by="Perc_PJ", ascending=True)
-
-plt.figure(figsize=(15, 5))
-
-plt.bar(regiao_group.index, regiao_group["Perc_PF"], label="Pessoa Física")
-plt.bar(regiao_group.index, regiao_group["Perc_PJ"], bottom=regiao_group["Perc_PF"], label="Pessoa Jurídica")
-
-plt.title("Percentual de Pix: PF vs PJ por Região")
+plt.title('Composição PF vs PJ por Região')
 plt.legend()
+
 plt.show()
 
-plt.figure(figsize=(10, 5))
-plt.bar(regiao_group.index, regiao_group["Perc_PJ"])
-plt.title("Percentual Pessoa Jurídica por Região")
+#Gráfico 2 — Comparação direta (PJ)
+
+plt.figure(figsize=(10,5))
+
+plt.bar(df_regiao_ordenado.index, df_regiao_ordenado['Perc_PJ'])
+
+plt.title('Participação de Pessoa Jurídica por Região')
+
 plt.show()
 
-plt.figure(figsize=(10, 5))
-plt.bar(regiao_group.index, regiao_group["Perc_PF"])
-plt.title("Percentual Pessoa Física por Região")
+#Gráfico 3 - Comparação direta (PF)
+
+plt.figure(figsize=(10,5))
+
+plt.bar(df_regiao_ordenado.index, df_regiao_ordenado['Perc_PF'])
+
+plt.title('Participação de Pessoa Física por Região')
+
 plt.show()
+```
+
+# Principais Insights
+
+- A região Sul apresenta a maior participação de pessoas jurídicas nas transações PIX.
+- Sudeste aparece logo em seguida, com valores próximos.
+- O uso de percentual foi essencial para comparar regiões de diferentes tamanhos.
+- Observou-se a presença de dados "Não informados", indicando possíveis problemas de coleta ou preenchimento.
+
+## Observação sobre os dados
+
+Uma parcela significativa das transações não possui informação de região ("Não informado").
+
+Isso pode indicar:
+- Falha no preenchimento dos dados
+- Campo não obrigatório
+- Problemas na coleta
+
+Essa informação foi mantida para análise, mas pode ser tratada separadamente em estudos futuros.
+
+
+
