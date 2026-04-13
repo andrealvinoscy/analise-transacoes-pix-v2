@@ -74,10 +74,11 @@ Foi realizada a agregação dos valores por região e o cálculo da participaç�
 
 ## 📊 Principais insights
 
-* A região **Sul** apresenta a maior participação de pessoas jurídicas nas transações PIX
-* A região **Sudeste** aparece em seguida, com valores próximos
-* O uso de **percentuais** foi essencial para comparar regiões de diferentes tamanhos
-* O gráfico de barras simples se mostrou mais eficiente para comparação direta entre regiões
+*A região Sul apresenta a maior participação proporcional de Pessoas Jurídicas (PJ) no volume de transações PIX em 2024, indicando uma maior concentração relativa de atividade empresarial em comparação às *demais regiões.
+*O Sudeste aparece logo em seguida, mantendo valores próximos ao Sul, o que reforça seu papel como principal polo econômico do país em termos de movimentação financeira via PIX.
+*Em todas as regiões analisadas, as transações de Pessoas Físicas (PF) representam a maior parte do volume total, evidenciando a predominância do uso do PIX no contexto de consumo e transferências pessoais.
+*A presença de registros classificados como “Não informado” indica possíveis limitações na qualidade ou completude da base de dados, o que pode impactar análises mais granulares.
+*A análise percentual foi fundamental para normalizar a comparação entre regiões com diferentes volumes absolutos de transações, permitindo uma leitura mais justa da distribuição entre PF e PJ.
 
 ---
 
