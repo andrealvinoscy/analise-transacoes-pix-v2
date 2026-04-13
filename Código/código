@@ -1,1 +1,42 @@
+import pandas as pd
+import matplotlib.pyplot as plt
 
+df = pd.read_json(r"C:\Users\andre\Downloads\Transações Pix por Município.json")
+df = pd.DataFrame(df["value"].tolist())
+
+print(df.head())
+print(df.info())
+print(df.describe())
+
+estado_group = df.groupby("Estado")[["VL_PagadorPF", "VL_PagadorPJ"]].sum()
+estado_group["Total"] = estado_group["VL_PagadorPF"] + estado_group["VL_PagadorPJ"]
+estado_group["Perc_PF"] = estado_group["VL_PagadorPF"] / estado_group["Total"]
+estado_group["Perc_PJ"] = estado_group["VL_PagadorPJ"] / estado_group["Total"]
+
+top_estados = estado_group.sort_values(by="Total", ascending=False).head(5)
+print(top_estados)
+
+regiao_group = df.groupby("Regiao")[["VL_PagadorPF", "VL_PagadorPJ"]].sum()
+regiao_group["Total"] = regiao_group["VL_PagadorPF"] + regiao_group["VL_PagadorPJ"]
+regiao_group["Perc_PF"] = regiao_group["VL_PagadorPF"] / regiao_group["Total"]
+regiao_group["Perc_PJ"] = regiao_group["VL_PagadorPJ"] / regiao_group["Total"]
+regiao_group = regiao_group.sort_values(by="Perc_PJ", ascending=True)
+
+plt.figure(figsize=(15, 5))
+
+plt.bar(regiao_group.index, regiao_group["Perc_PF"], label="Pessoa Física")
+plt.bar(regiao_group.index, regiao_group["Perc_PJ"], bottom=regiao_group["Perc_PF"], label="Pessoa Jurídica")
+
+plt.title("Percentual de Pix: PF vs PJ por Região")
+plt.legend()
+plt.show()
+
+plt.figure(figsize=(10, 5))
+plt.bar(regiao_group.index, regiao_group["Perc_PJ"])
+plt.title("Percentual Pessoa Jurídica por Região")
+plt.show()
+
+plt.figure(figsize=(10, 5))
+plt.bar(regiao_group.index, regiao_group["Perc_PF"])
+plt.title("Percentual Pessoa Física por Região")
+plt.show()
